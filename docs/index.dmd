@@ -1,0 +1,291 @@
+```set title ScrollBall cheat sheet```
+```set template default.html```
+```set autoapi ext```
+```set tag:defcode ahk```
+#[Concepts]() {
+	The way this macro works is as following: --{
+	-	When a mouse movement is detected on the chosen device(s)
+		and [lock condition](ScrollBall.Conditions.CanStart) (if any) is satisfied,
+		that movement is undone and the system cursor is *locked* in place.  
+	-	While the cursor is *locked*, movements from chosen device(s) translate into
+		chosen custom logic.
+	-	The cursor is *unlocked*
+		when [enough time has passed](ScrollBall.Config.unlockDelay) without movement
+		from the chosen device(s)
+		or when an [unlock condition](ScrollBall.Conditions.ShouldStop) is satisfied.
+	}
+}
+#[General use](intro) {
+	To use the script, instantiate ScrollBall,
+	set up your desired variables, and call `Listen()`:
+	```ahk
+	#SingleInstance Force
+	#include "ScrollBall.ahk"
+	Persistent
+	
+	sb := ScrollBall()
+	; sb.config.xAxis.enabled := false ; disable X-axis
+	sb.Listen()
+	```
+}
+#[ScrollBall](+) {
+	This is the macro-controller.  
+	It's a class, but you'll only need one instance of it.
+	#[ScrollBall(config := ScrollBall.Config())](-) {
+		Creates a new controller.
+		
+		If you don't provide a configuration object, a default one
+		(translating movements into scrolling)
+		will be created for you.
+	}
+	---
+	#[deviceID := "select"](-) {
+		This is the device to translate movements of.
+		
+		The value can be: --{
+		- A numeric device ID (like `65597`)
+		- `"any"` to use any device (note: try to not lock yourself out of using the computer)
+		- `"select"` to prompt for device selection on startup
+		- `"debug"` to display devices+offsets without translating anything
+		}
+	}
+	#[selectThreshold := 100](-) {
+		When deviceID is `"select"`, this indicates how far (in pixels)
+		a pointing device should be moved before being selected.
+	}
+	---
+	#[Listen()](-) {
+		Initializes Raw Input and binds the event listener.
+		
+		You should call this after you've set up most of the parameters.
+	}
+	#[config := ScrollBall.Config()](-) {
+		You may hot-swap the configuration object after creating a controller.
+		```ahk
+		sb := ScrollBall()
+		sb.Listen()
+		; ... and later on
+		sb.config := otherConfig
+		```
+	}
+	---
+	#[active := false](-) {
+		Indicates whether the cursor is currently locked and movements from chosen device(s)
+		are being translated.
+	}
+	#[Start()](-) {
+		Locks the cursor and starts translating movements.
+		
+		Calling this function will not automatically start the
+		[unlockDelay](ScrollBall.Config.unlockDelay) timer until the mouse moves,
+		so you can use it in hotkeys.
+		
+		For example, the following would translate movement from any device into scrolling,
+		but only after pressing Alt+S (and until the movement stops):
+		```
+		sb := ScrollBall()
+		sb.config.unlockDelay := 100
+		sb.config.conditions := ScrollBall.ManualStart()
+		sb.deviceID := "any"
+		sb.Listen()
+		
+		!s::sb.Start()
+		```
+	}
+	#[Stop()](-) {
+		Unlocks the cursor and stops translating movements.
+		
+		This is an alternative to defining a [ShouldStop](ScrollBall.Conditions.ShouldStop) condition.
+		
+		For example, the following would toggle between using the cursor for movement and scrolling
+		when pressing Alt+S:
+		```
+		sb := ScrollBall()
+		sb.config.unlockDelay := 0
+		sb.config.conditions := ScrollBall.ManualStart()
+		sb.deviceID := "any"
+		sb.Listen()
+		
+		!s::{
+			if sb.active {
+				sb.Stop()
+			} else {
+				sb.Start()
+			}
+		}
+		```
+	}
+}
+#[ScrollBall.Config](+) {
+	#[unlockDelay := 50](-) {
+		While the cursor is locked,
+		this is how long can pass (in milliseconds)
+		without movement from chosen device(s) before it will be unlocked.
+		
+		Lower values may feel more responsive when using two pointing devices at once,
+		but be careful - setting this below (1000 / device polling rate)
+		can cause buggy movement.
+		
+		Setting this to 0 disables the timeout completely,
+	}
+	#[conditions := ScrollBall.Conditions()](-) {
+		Controls when the macro can activate and when it should deactivate.
+		
+		See [Conditions] for more information.
+	}
+	#[diagonals := false](-) {
+		Whether diagonal input is allowed
+		(if it isn't, only the greater of two axes is considered during movements).
+	}
+	#[xAxis := ScrollBall.AxisConfig()](-) {
+		Controls how X-Axis works - see [ScrollBall.AxisConfig] for more information.
+	}
+	#[yAxis := ScrollBall.AxisConfig()](-) {
+		Controls how X-Axis works - see [ScrollBall.AxisConfig] for more information.
+	}
+}
+#[ScrollBall.AxisConfig](+) {
+	#[enabled := true](-) {
+		When an axis is disabled, mouse movement across it is ignored.
+	}
+	#[pixelsPerStep := 12](-) {
+		The number of pixels (of cursor movement) required to trigger one action
+		(wheel step, key press) on this axis.
+	}
+	#[lockThreshold := 0](-) {
+		If set to a value greater than zero,
+		after moving the cursor across this axis for this many pixels,
+		the axis will "lock" and input across the other axis will be ignored
+		until the cursor unlocks.
+	}
+	#[scroller := ScrollBall.Scroller()](-) {
+		A "scroller" decides what happens whenever an action triggers -
+		see [Scrollers] for more information.
+	}
+}
+#[Conditions]() {
+	These define additional conditions for locking the mouse
+	and special cases for unlocking.
+	
+	#[ScrollBall.Conditions](+) {
+		This is the default set of conditions, that is - the lack of thereof.
+		
+		If you are defining your own conditions, you can extend it, like so
+		```ahk
+		class MyConditions extends ScrollBall.Conditions {
+			; ...
+		}
+		```
+		The class can define the following methods:
+		#[CanStart()->Bool](-) {
+			By default, the cursor locks and macro logic starts whenever the affected device(s)
+			moves.
+			
+			You may opt to only do so when a condition is met - such as if a key is held down,
+			or a specific window is active.
+			
+			You may also use this opportunity to adjust your configuration
+			(such as to have per-application sensitivity/actions)
+			before returning `true`.
+			
+			For example, the following would only start the macro logic
+			if Left Alt is held down while moving the mouse.
+			```ahk
+			class MyConditions extends ScrollBall.Conditions {
+				CanStart() => GetKeyState("LAlt")
+			}
+			```
+		}
+		#[ShouldStop()->Bool](-) {
+			By default, the cursor unlocks and macro logic stops after a timeout
+			([unlockDelay](ScrollBall.Config.unlockDelay)).
+			
+			By overriding this function you may provide an additional stop-condition - such as
+			a key being released or window focus changing.
+			
+			If you return `true`, this will also be the last thing that runs before unlocking the
+			cursor.
+			
+			For example, the following would only start the macro logic
+			if Left Alt is held down the mouse
+			and stop as soon as Left Alt is released
+			```ahk
+			class MyConditions extends ScrollBall.Conditions {
+				CanStart() => GetKeyState("LAlt")
+				ShouldStop() => not GetKeyState("LAlt")
+			}
+			```
+		}
+	}
+	#[ScrollBall.ManualStart()](+) {
+		This is a convenience class
+	}
+	#[ScrollBall.KeyHoldConditions(key, stopOnRelease)](+) {
+		This is a convenience class for locking the mouse when a key is held
+		(polled through `GetKeyState`).
+		
+		If `stopOnRelease` is `true`, unlocks the mouse when the key is released.
+		
+		For example,
+		```
+		sb := ScrollBall()
+		sb.config.conditions := ScrollBall.KeyHoldConditions("LAlt", true)
+		sb.deviceID := "any"
+		sb.Listen()
+		```
+		Would lock mouse and scroll for any device, but only while Left Alt is held.
+	}
+}
+#[Scrollers]() {
+	These define what happens when translating mouse movement while locked.
+	#[ScrollBall.Scroller](+) {
+		This is the base scroller. When making your own, you should inherit from it, like so:
+		```
+		class MyScroller extends ScrollBall.Scroller {
+			; ...
+		}
+		```
+		The class should define the following methods:
+		#[Apply(delta)](-) {
+			This function is called once per
+			[pixelsPerStep](ScrollBall.AxisConfig.pixelsPerStep)
+			worth of movement on an axis
+			and should perform whatever action that you'd like.
+			
+			If [stepped](ScrollBall.Scroller.stepped) hasn't been set to `false`,
+			`delta` can only be 1 or -1, meaning that your function might look just like so:
+			```
+			class ArrowScroller extends ScrollBall.Scroller {
+				Apply(dir) {
+					if dir < 0 {
+						Send("{up}")
+					} else {
+						Send("{down}")
+					}
+				}
+			}
+			```
+		}
+		The class may override the following properties:
+		#[stepped := true](-) {
+			If set to `false`, instead of calling `Apply` with delta=-1 or delta=1 N times,
+			it will be called one time with delta=N or delta=-N.
+			
+			This can be handy if you are using a low
+			[pixelsPerStep](ScrollBall.AxisConfig.pixelsPerStep)
+			value for things like window movement
+			(that are best performed once for N pixels instead of N times for 1 pixel)
+		}
+	}
+	#[ScrollBall.KeyScroller(keyUp, keyDown)](+) {
+		This is a convenience class that sends one or other key stroke (using `Send`)
+		depending on direction.
+	}
+}
+#[Other stuff](other) {
+	#[trace(...)]() {
+		This is a convenience function that displays one or more values in the attached console window.
+		
+		If there is no console window, it will be created on first call.
+	}
+}

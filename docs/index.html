@@ -1,0 +1,766 @@
+<!DOCTYPE HTML><html lang="en"><head>
+<meta charset="UTF-8">
+<title>ScrollBall cheat sheet</title>
+<meta name="viewport" content="width=device-width" />
+<meta name="livenode" content="#doc" />
+<meta property="theme-color" content="#FFF037" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="en_us" />
+<meta property="og:site_name" content="YellowAfterlife" />
+<meta property="og:title" content="ScrollBall cheat sheet" />
+<script type="text/javascript">
+if (document.location.host == "yal.cc" && location.protocol == "http:") {
+	document.location.protocol = "https:";
+}
+</script>
+<style type="text/css">body, #doc tt, #doc code {
+	font: 15px 'Open Sans', sans-serif;
+	line-height: 1.35;
+}
+body {
+	margin: 0;
+}
+.main {
+	width: 100%;
+	min-height: 100%;
+	min-height: 100vh;
+	background-color: #f5f7f9;
+}
+.page {
+	max-width: 656px;
+	background: #ffffff;
+	margin: 0 auto;
+	padding: 8px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	min-height: 100%;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+.page > p:first-child {
+	margin-top: 0;
+}
+#doc, #doc ul, #doc ol {
+	padding-left: 0;
+	margin: 0;
+}
+#doc blockquote { margin: 0.5em 0; padding: 0; }
+#doc article > ul, #doc article > ol {
+	padding-left: 20px;
+}
+#doc article ul li {
+	list-style: disc;
+	list-style-image: url('data:image/svg+xml;base256,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="1em" viewBox="0 0 20px 1em"><circle cx="17px" cy="0.675em" r="2px"/></svg>'); 
+}
+
+#doc header {
+	margin: 0;
+	font-weight: 700;
+	font-size: 100%;
+	color: #458;
+	border-left: 2px solid #f3f3f3;/* #f9f9f9*/
+	padding-left: 4px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+#doc header a {
+	outline: none;
+	text-decoration: none;
+	color: #458;
+	word-break: break-word;
+}
+#doc header::before {
+	display: inline-block;
+	content: "+";
+	font: 12px monospace;
+	border: 1px solid #458;
+	line-height: 11px;
+	height: 11px;
+	width: 11px;
+	text-align: center;
+	border-radius: 50%;
+	margin-right: 4px;
+	vertical-align: middle;
+	flex-shrink: 0;
+}
+#doc section.open > header::before {
+	content: "-";
+}
+#doc section.empty > header::before {
+	content: " "; /*"·"*/
+}
+
+#doc header:hover,
+#doc .sticky-side:hover {
+	border-left-color: #E7E7E7; /* rgba(0, 0, 0, 0.05) */
+	background: rgba(0, 0, 0, 0.048);
+}
+#doc header .ret-arrow {
+	font-weight: normal;
+	margin: 0 0.1em;
+}
+
+#doc a.broken {
+	color: red;
+}
+#doc p, .intro p {
+	margin: 0;
+}
+#doc p + p, .intro p + p, #doc p.pad, .display-controls {
+	margin-top: 0.5em;
+}
+#doc img {
+	max-width: 100%;
+}
+#doc h3 {
+	margin: 0.25em 0;
+	font-size: 125%;
+	font-weight: normal;
+	border-bottom: 1px solid #ccc;
+}
+
+#doc article, #doc ul, #doc blockquote {
+	padding-left: 20px;
+	border-left: 2px solid #f3f3f3;
+}
+#doc article {
+	padding-top: 0.25em;
+	padding-bottom: 0.5em;
+	position: relative;
+}
+#doc .sticky-side {
+	position: absolute;
+	left: -2px;
+	top: 0;
+	bottom: 1px;
+	width: 20px;
+	writing-mode: vertical-rl;
+	font-size: 85%;
+	text-orientation: sideways;
+}
+#doc .sticky-side,
+#doc .sticky-side:visited {
+	color: rgba(0, 0, 0, 0.3);
+}
+#doc .sticky-side > span {
+	display: inline-block;
+	position: sticky;
+	left: 0;
+	top: 0;
+	padding: 0.3em 0;
+	max-height: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+	white-space: nowrap;
+}
+#doc tt {
+	font-weight: bold;
+}
+#doc code {
+	display: inline-block;
+	background: #FFFBE4;
+	font-family: Consolas, Ubuntu Mono, Dejavu Sans Mono, Lucida Console, monospace;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 16px;
+	padding: 0 2px;
+	border: 1px solid #E6E0C4;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	max-width: 100%;
+	word-break: break-word;
+}
+
+#doc table {
+	border-spacing: 0;
+	color: currentColor;
+}
+#doc table, #doc table td, #doc table th {
+	border: 1px solid #f3f3f3;
+}
+#doc table td, #doc table th {
+	padding: 0.1em 0.5em;
+}
+#doc pre {
+	font-family: Consolas, Dejavu Sans Mono, Segoe UI Mono, Ubuntu Mono, Lucida Console, monospace;
+	font-size: 9pt;
+	line-height: 1.25;
+	background: white;
+	padding: 4px 2px 4px 10px;
+	margin: 0;
+	-moz-tab-size: 4;
+	tab-size: 4;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+#doc pre a {
+	text-decoration: none;
+}
+#doc pre a:hover {
+	text-decoration: underline;
+}
+#doc abbr[title] {
+	text-decoration: underline;
+	-webkit-text-decoration-color: #bbb;
+	text-decoration-color: #bbb;
+	-webkit-text-decoration-style: double;
+	text-decoration-style: double;
+}
+#doc hr {
+	margin: 0.5em 0;
+	margin-right: 1em;
+	border: 0;
+	border-top: 2px dashed #f3f3f3;
+}
+#doc section + hr {
+	margin: 0;
+	height: 1em;
+	border: 1px solid #f3f3f3;
+	border-width: 1px 0 1px 0;
+}
+#doc section {
+	border-top: 1px solid #f3f3f3;
+	margin-top: 0.3em;
+}
+#doc section:first-child {
+	margin-top: 0em;
+}
+#doc section:last-child {
+	border-bottom: 1px solid #f3f3f3;
+}
+#doc section + section, #doc hr + section {
+	border-top: 0;
+	margin-top: 0;
+}
+#doc section + p {
+	border-top: 1px solid #f3f3f3;
+	padding-top: 0.3em;
+}
+/* delay display until load */
+#doc[ready] section:not(.open) > article {
+	display: none;
+}</style>
+<style type="text/css" id="lang_ahk">/* AutoHotKey */
+pre.ahk .md { color: #7A81A9 } /* #define */
+pre.ahk .kw { color: #008; font-weight: bold } /* keyword */
+pre.ahk .co { color: #080 } /* comment */
+pre.ahk .nu { color: #F03232 } /* number */
+pre.ahk .nx { color: #00f } /* hex */
+pre.ahk .st { color: #00f } /* string */
+pre.ahk .ts { color: #00f } /* template string */
+pre.ahk .op { color: #000 } /* operator */
+pre.ahk .cb { color: #008; font-weight: bold } /* curly brace */
+pre.ahk .sv { color: #800 } /* std func */
+pre.ahk .sf { color: #800 } /* std var */
+pre.ahk .ri { color: #0078aa } /* assets */
+pre.ahk .uf { color: #808 } /* user func */
+pre.ahk .lv { color: #648 } /* local var */
+pre.ahk .uv { color: #804 } /* user var */
+pre.ahk .fd { color: #804 } /* field */
+
+pre.ahk a.uf {
+	background-color: #f7f0ff;
+}
+pre.ahk a.kw {
+	background-color: #f0f7ff;
+}
+pre.ahk a.sf, #doc pre a.sv {
+	background-color: #fff3f0;
+}
+
+#night:checked + .main pre.ahk .op { color: #CCCCCC }
+#night:checked + .main pre.ahk .co { color: #5B995B }
+#night:checked + .main pre.ahk .kw { color: #FFB871 }
+#night:checked + .main pre.ahk .md { color: #FFB871 }
+#night:checked + .main pre.ahk .cb { color: #FFB871 }
+#night:checked + .main pre.ahk .sf { color: #FFB871 }
+#night:checked + .main pre.ahk .uf { color: #FFB871 }
+#night:checked + .main pre.ahk .nu { color: #FF8080 }
+#night:checked + .main pre.ahk .st { color: #FCF320 }
+#night:checked + .main pre.ahk .ts { color: #FF8080 }
+#night:checked + .main pre.ahk .sv { color: #FF8080 }
+#night:checked + .main pre.ahk .gv { color: #FF80FF }
+#night:checked + .main pre.ahk .ri { color: #FF8080 }
+#night:checked + .main pre.ahk .lv { color: #FFF899 }
+#night:checked + .main pre.ahk .uv { color: #B2B1FF }
+#night:checked + .main pre.ahk .fd { color: #B2B1FF }
+
+#night:checked + .main pre.ahk a.uf,
+#night:checked + .main pre.ahk a.kw,
+#night:checked + .main pre.ahk a.sf {
+	background-color: #431;
+}
+#night:checked + .main pre.ahk a.sv {
+	background-color: #422;
+}</style>
+<style type="text/css" id="night_css">.main label[for="night"] {
+	cursor: pointer;
+}
+#night { display: none }
+#night:checked + .main {
+	background-color: #424242;
+}
+#night:checked + .main .page {
+	background-color: #1c1c1c;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	color: white;
+}
+#night:checked + .main a,
+#night:checked + .main a:visited,
+#night:checked + .main #doc header,
+#night:checked + .main label[for="night"] {
+	color: #9DEC76;
+}
+#night:checked + .main #doc header:before,
+#night:checked + .main #doc h3 {
+	border-color: #9DEC76
+}
+#night:checked + .main #doc header,
+#night:checked + .main #doc header:hover,
+#night:checked + .main #doc .sticky-side:hover,
+#night:checked + .main #doc article,
+#night:checked + .main #doc section,
+#night:checked + .main #doc section + p,
+#night:checked + .main #doc hr,
+#night:checked + .main #doc ul,
+#night:checked + .main #doc table,
+#night:checked + .main #doc table td,
+#night:checked + .main #doc table th
+{
+	border-color: rgba(205,225,255,0.1);
+}
+#night:checked + .main #doc header:hover,
+#night:checked + .main #doc .sticky-side:hover,
+#night:checked + .main #doc .asset:hover {
+	background: rgba(205,225,255,0.1);
+}
+#night:checked + .main article ul li {
+	list-style-image: url('data:image/svg+xml;base256,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="1em" viewBox="0 0 20px 1em"><circle cx="17px" cy="0.675em" r="2px" fill="white"/></svg>'); 
+}
+#night:checked + .main pre {
+	color: #cccccc;
+	background: #000000;
+	border: 1px solid #3E4757;
+}
+#night:checked + .main #doc code {
+	background-color: #000;
+	border-color: #5b7c9f;
+	color: white;
+}
+#night:checked + .main #doc .sticky-side,
+#night:checked + .main #doc .sticky-side:visited {
+	color: rgba(255, 255, 255, 0.3);
+}</style>
+<style type="text/css" id="print_css">@media print {
+	.main { background-color: transparent }
+	.display-controls { display: none; }
+	.page { width: 100%; box-shadow: none; }
+	#doc header::before,
+	#doc section.open header::before	{
+		content: "~";
+	}
+	#doc { display: inherit }
+	#doc section:not(.open) > article,
+	#doc[ready] section:not(.open) > article {
+		display: inherit;
+	}
+}</style>
+<noscript><style>#doc header::before {
+	content: "~";
+}
+#doc header:hover {
+	border-left-color: #f3f3f3;
+	background: inherit;
+}
+#doc { display: inherit }
+#doc section:not(.open) > article {
+	display: inherit;
+}</style></noscript>
+</head><body>
+<input type="checkbox" id="night" checked/>
+<div class="main ">
+<script type="text/javascript">(function() {
+	var night = document.getElementById("night");
+	var path = "docmd night mode";
+	var ls = window.localStorage;
+	var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	if (ls) {
+		var item = ls.getItem(path);
+		night.checked = item ? item == "true" : dark;
+		night.onchange = function(_) {
+			ls.setItem(path, "" + night.checked);
+		};
+	} else night.checked = dark;
+})();</script>
+<main class="page">
+<section class="intro"><!--%[md:intro]--></section>
+<section class="display-controls">
+Click on sections to expand/collapse them.<br>Quick display controls:
+<a href="javascript:void(0)" onclick="opt_none(); return false">Categories</a>
+&middot; <a href="javascript:void(0)" onclick="opt_list(); return false">Sections</a>
+&middot; <a href="javascript:void(0)" onclick="opt_all(); return false">Everything</a>
+&middot; <a href="javascript:void(0)"><label for="night">Toggle night mode</label></a><br/>
+</section><section id="doc">
+<!--<doc--><p><p>
+
+<style>
+.main { background-color: #899FC6 }
+.page { box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) }
+#night:checked + .main { background-color: #405070 }
+#night:checked + .main .page { background-color: #1A202D }
+</style>
+
+
+
+
+
+</p><section><header id="Concepts"><a href="#Concepts" title="(permalink)">Concepts</a></header><article><p>
+	The way this macro works is as following: </p><ul>
+	<li>	When a mouse movement is detected on the chosen device(s)
+		and <a href="#ScrollBall.Conditions.CanStart">lock condition</a> (if any) is satisfied,
+		that movement is undone and the system cursor is <strong>locked</strong> in place.  <br/>
+	</li><li>	While the cursor is <strong>locked</strong>, movements from chosen device(s) translate into
+		chosen custom logic.
+	</li><li>	The cursor is <strong>unlocked</strong>
+		when <a href="#ScrollBall.Config.unlockDelay">enough time has passed</a> without movement
+		from the chosen device(s)
+		or when an <a href="#ScrollBall.Conditions.ShouldStop">unlock condition</a> is satisfied.
+	</li></ul></article></section><section><header id="intro"><a href="#intro" title="(permalink)">General use</a></header><article><p>
+	To use the script, instantiate ScrollBall,
+	set up your desired variables, and call <code>Listen()</code>:
+	</p><pre class="ahk">
+<span class="md">#SingleInstance</span> <span class="uv">Force</span>
+<span class="md">#include</span> <span class="st">"ScrollBall.ahk"</span>
+<span class="kw">Persistent</span>
+
+<span class="uv">sb</span> <span class="op">:</span><span class="op">=</span> <a class="sf" href="#ScrollBall">ScrollBall</a><span class="op">(</span><span class="op">)</span>
+<span class="co">; sb.config.xAxis.enabled := false ; disable X-axis</span>
+<span class="uv">sb</span><span class="op">.</span><span class="sf">Listen</span><span class="op">(</span><span class="op">)</span>
+</pre></article></section><section><header id="ScrollBall"><a href="#ScrollBall" title="(permalink)">ScrollBall</a></header><article><a class="sticky-side" href="#ScrollBall" title="ScrollBall"><span>ScrollBall</span></a><p>
+	This is the macro-controller.  <br/>
+	It's a class, but you'll only need one instance of it.
+	</p><section><header id="ScrollBall.ScrollBall"><a href="#ScrollBall.ScrollBall" title="(permalink)">ScrollBall(config := ScrollBall.Config())</a></header><article><p>
+		Creates a new controller.
+		</p><p>
+		If you don't provide a configuration object, a default one
+		(translating movements into scrolling)
+		will be created for you.
+	</p></article></section><hr/><section><header id="ScrollBall.deviceID"><a href="#ScrollBall.deviceID" title="(permalink)">deviceID := "select"</a></header><article><p>
+		This is the device to translate movements of.
+		</p><p>
+		The value can be: </p><ul>
+		<li> A numeric device ID (like <code>65597</code>)
+		</li><li> <code>"any"</code> to use any device (note: try to not lock yourself out of using the computer)
+		</li><li> <code>"select"</code> to prompt for device selection on startup
+		</li><li> <code>"debug"</code> to display devices+offsets without translating anything
+		</li></ul></article></section><section><header id="ScrollBall.selectThreshold"><a href="#ScrollBall.selectThreshold" title="(permalink)">selectThreshold := 100</a></header><article><p>
+		When deviceID is <code>"select"</code>, this indicates how far (in pixels)
+		a pointing device should be moved before being selected.
+	</p></article></section><hr/><section><header id="ScrollBall.Listen"><a href="#ScrollBall.Listen" title="(permalink)">Listen()</a></header><article><p>
+		Initializes Raw Input and binds the event listener.
+		</p><p>
+		You should call this after you've set up most of the parameters.
+	</p></article></section><section><header id="ScrollBall.config"><a href="#ScrollBall.config" title="(permalink)">config := ScrollBall.Config()</a></header><article><p>
+		You may hot-swap the configuration object after creating a controller.
+		</p><pre class="ahk">
+<span class="uv">sb</span> <span class="op">:</span><span class="op">=</span> <a class="sf" href="#ScrollBall">ScrollBall</a><span class="op">(</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="sf">Listen</span><span class="op">(</span><span class="op">)</span>
+<span class="co">; ... and later on</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">config</span> <span class="op">:</span><span class="op">=</span> <span class="uv">otherConfig</span>
+</pre></article></section><hr/><section><header id="ScrollBall.active"><a href="#ScrollBall.active" title="(permalink)">active := false</a></header><article><p>
+		Indicates whether the cursor is currently locked and movements from chosen device(s)
+		are being translated.
+	</p></article></section><section><header id="ScrollBall.Start"><a href="#ScrollBall.Start" title="(permalink)">Start()</a></header><article><p>
+		Locks the cursor and starts translating movements.
+		</p><p>
+		Calling this function will not automatically start the
+		<a href="#ScrollBall.Config.unlockDelay">unlockDelay</a> timer until the mouse moves,
+		so you can use it in hotkeys.
+		</p><p>
+		For example, the following would translate movement from any device into scrolling,
+		but only after pressing Alt+S (and until the movement stops):
+		</p><pre class="ahk">
+<span class="uv">sb</span> <span class="op">:</span><span class="op">=</span> <a class="sf" href="#ScrollBall">ScrollBall</a><span class="op">(</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">config</span><span class="op">.</span><span class="fd">unlockDelay</span> <span class="op">:</span><span class="op">=</span> <span class="nu">100</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">config</span><span class="op">.</span><span class="fd">conditions</span> <span class="op">:</span><span class="op">=</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.ManualStart">ManualStart</a><span class="op">(</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">deviceID</span> <span class="op">:</span><span class="op">=</span> <span class="st">"any"</span>
+<span class="uv">sb</span><span class="op">.</span><span class="sf">Listen</span><span class="op">(</span><span class="op">)</span>
+
+<span class="op">!</span><span class="uv">s</span><span class="op">:</span><span class="op">:</span><span class="uv">sb</span><span class="op">.</span><span class="sf">Start</span><span class="op">(</span><span class="op">)</span>
+</pre></article></section><section><header id="ScrollBall.Stop"><a href="#ScrollBall.Stop" title="(permalink)">Stop()</a></header><article><p>
+		Unlocks the cursor and stops translating movements.
+		</p><p>
+		This is an alternative to defining a <a href="#ScrollBall.Conditions.ShouldStop">ShouldStop</a> condition.
+		</p><p>
+		For example, the following would toggle between using the cursor for movement and scrolling
+		when pressing Alt+S:
+		</p><pre class="ahk">
+<span class="uv">sb</span> <span class="op">:</span><span class="op">=</span> <a class="sf" href="#ScrollBall">ScrollBall</a><span class="op">(</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">config</span><span class="op">.</span><span class="fd">unlockDelay</span> <span class="op">:</span><span class="op">=</span> <span class="nu">0</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">config</span><span class="op">.</span><span class="fd">conditions</span> <span class="op">:</span><span class="op">=</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.ManualStart">ManualStart</a><span class="op">(</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">deviceID</span> <span class="op">:</span><span class="op">=</span> <span class="st">"any"</span>
+<span class="uv">sb</span><span class="op">.</span><span class="sf">Listen</span><span class="op">(</span><span class="op">)</span>
+
+<span class="op">!</span><span class="uv">s</span><span class="op">:</span><span class="op">:</span><span class="cb">{</span>
+	<span class="kw">if</span> <span class="uv">sb</span><span class="op">.</span><span class="fd">active</span> <span class="cb">{</span>
+		<span class="uv">sb</span><span class="op">.</span><span class="sf">Stop</span><span class="op">(</span><span class="op">)</span>
+	<span class="cb">}</span> <span class="kw">else</span> <span class="cb">{</span>
+		<span class="uv">sb</span><span class="op">.</span><span class="sf">Start</span><span class="op">(</span><span class="op">)</span>
+	<span class="cb">}</span>
+<span class="cb">}</span>
+</pre></article></section></article></section><section><header id="ScrollBall.Config"><a href="#ScrollBall.Config" title="(permalink)">ScrollBall.Config</a></header><article><a class="sticky-side" href="#ScrollBall.Config" title="ScrollBall.Config"><span>ScrollBall.Config</span></a><section><header id="ScrollBall.Config.unlockDelay"><a href="#ScrollBall.Config.unlockDelay" title="(permalink)">unlockDelay := 50</a></header><article><p>
+		While the cursor is locked,
+		this is how long can pass (in milliseconds)
+		without movement from chosen device(s) before it will be unlocked.
+		</p><p>
+		Lower values may feel more responsive when using two pointing devices at once,
+		but be careful - setting this below (1000 / device polling rate)
+		can cause buggy movement.
+		</p><p>
+		Setting this to 0 disables the timeout completely,
+	</p></article></section><section><header id="ScrollBall.Config.conditions"><a href="#ScrollBall.Config.conditions" title="(permalink)">conditions := ScrollBall.Conditions()</a></header><article><p>
+		Controls when the macro can activate and when it should deactivate.
+		</p><p>
+		See <a href="#Conditions">Conditions</a> for more information.
+	</p></article></section><section><header id="ScrollBall.Config.diagonals"><a href="#ScrollBall.Config.diagonals" title="(permalink)">diagonals := false</a></header><article><p>
+		Whether diagonal input is allowed
+		(if it isn't, only the greater of two axes is considered during movements).
+	</p></article></section><section><header id="ScrollBall.Config.xAxis"><a href="#ScrollBall.Config.xAxis" title="(permalink)">xAxis := ScrollBall.AxisConfig()</a></header><article><p>
+		Controls how X-Axis works - see <a href="#ScrollBall.AxisConfig">ScrollBall.AxisConfig</a> for more information.
+	</p></article></section><section><header id="ScrollBall.Config.yAxis"><a href="#ScrollBall.Config.yAxis" title="(permalink)">yAxis := ScrollBall.AxisConfig()</a></header><article><p>
+		Controls how X-Axis works - see <a href="#ScrollBall.AxisConfig">ScrollBall.AxisConfig</a> for more information.
+	</p></article></section></article></section><section><header id="ScrollBall.AxisConfig"><a href="#ScrollBall.AxisConfig" title="(permalink)">ScrollBall.AxisConfig</a></header><article><a class="sticky-side" href="#ScrollBall.AxisConfig" title="ScrollBall.AxisConfig"><span>ScrollBall.AxisConfig</span></a><section><header id="ScrollBall.AxisConfig.enabled"><a href="#ScrollBall.AxisConfig.enabled" title="(permalink)">enabled := true</a></header><article><p>
+		When an axis is disabled, mouse movement across it is ignored.
+	</p></article></section><section><header id="ScrollBall.AxisConfig.pixelsPerStep"><a href="#ScrollBall.AxisConfig.pixelsPerStep" title="(permalink)">pixelsPerStep := 12</a></header><article><p>
+		The number of pixels (of cursor movement) required to trigger one action
+		(wheel step, key press) on this axis.
+	</p></article></section><section><header id="ScrollBall.AxisConfig.lockThreshold"><a href="#ScrollBall.AxisConfig.lockThreshold" title="(permalink)">lockThreshold := 0</a></header><article><p>
+		If set to a value greater than zero,
+		after moving the cursor across this axis for this many pixels,
+		the axis will "lock" and input across the other axis will be ignored
+		until the cursor unlocks.
+	</p></article></section><section><header id="ScrollBall.AxisConfig.scroller"><a href="#ScrollBall.AxisConfig.scroller" title="(permalink)">scroller := ScrollBall.Scroller()</a></header><article><p>
+		A "scroller" decides what happens whenever an action triggers -
+		see <a href="#Scrollers">Scrollers</a> for more information.
+	</p></article></section></article></section><section><header id="Conditions"><a href="#Conditions" title="(permalink)">Conditions</a></header><article><a class="sticky-side" href="#Conditions" title="Conditions"><span>Conditions</span></a><p>
+	These define additional conditions for locking the mouse
+	and special cases for unlocking.
+	</p><section><header id="ScrollBall.Conditions"><a href="#ScrollBall.Conditions" title="(permalink)">ScrollBall.Conditions</a></header><article><a class="sticky-side" href="#ScrollBall.Conditions" title="ScrollBall.Conditions"><span>ScrollBall.Conditions</span></a><p>
+		This is the default set of conditions, that is - the lack of thereof.
+		</p><p>
+		If you are defining your own conditions, you can extend it, like so
+		</p><pre class="ahk">
+<span class="kw">class</span> <span class="uv">MyConditions</span> <span class="kw">extends</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.Conditions">Conditions</a> <span class="cb">{</span>
+	<span class="co">; ...</span>
+<span class="cb">}</span>
+</pre><p>
+		The class can define the following methods:
+		</p><section><header id="ScrollBall.Conditions.CanStart"><a href="#ScrollBall.Conditions.CanStart" title="(permalink)">CanStart()&#8203;<span class="ret-arrow">&#10140;</span>Bool</a></header><article><p>
+			By default, the cursor locks and macro logic starts whenever the affected device(s)
+			moves.
+			</p><p>
+			You may opt to only do so when a condition is met - such as if a key is held down,
+			or a specific window is active.
+			</p><p>
+			You may also use this opportunity to adjust your configuration
+			(such as to have per-application sensitivity/actions)
+			before returning <code>true</code>.
+			</p><p>
+			For example, the following would only start the macro logic
+			if Left Alt is held down while moving the mouse.
+			</p><pre class="ahk">
+<span class="kw">class</span> <span class="uv">MyConditions</span> <span class="kw">extends</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.Conditions">Conditions</a> <span class="cb">{</span>
+	<span class="uf">CanStart</span><span class="op">(</span><span class="op">)</span> <span class="op">=</span><span class="op">&gt;</span> <span class="uf">GetKeyState</span><span class="op">(</span><span class="st">"LAlt"</span><span class="op">)</span>
+<span class="cb">}</span>
+</pre></article></section><section><header id="ScrollBall.Conditions.ShouldStop"><a href="#ScrollBall.Conditions.ShouldStop" title="(permalink)">ShouldStop()&#8203;<span class="ret-arrow">&#10140;</span>Bool</a></header><article><p>
+			By default, the cursor unlocks and macro logic stops after a timeout
+			(<a href="#ScrollBall.Config.unlockDelay">unlockDelay</a>).
+			</p><p>
+			By overriding this function you may provide an additional stop-condition - such as
+			a key being released or window focus changing.
+			</p><p>
+			If you return <code>true</code>, this will also be the last thing that runs before unlocking the
+			cursor.
+			</p><p>
+			For example, the following would only start the macro logic
+			if Left Alt is held down the mouse
+			and stop as soon as Left Alt is released
+			</p><pre class="ahk">
+<span class="kw">class</span> <span class="uv">MyConditions</span> <span class="kw">extends</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.Conditions">Conditions</a> <span class="cb">{</span>
+	<span class="uf">CanStart</span><span class="op">(</span><span class="op">)</span> <span class="op">=</span><span class="op">&gt;</span> <span class="uf">GetKeyState</span><span class="op">(</span><span class="st">"LAlt"</span><span class="op">)</span>
+	<span class="uf">ShouldStop</span><span class="op">(</span><span class="op">)</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">not</span> <span class="uf">GetKeyState</span><span class="op">(</span><span class="st">"LAlt"</span><span class="op">)</span>
+<span class="cb">}</span>
+</pre></article></section></article></section><section><header id="ScrollBall.ManualStart"><a href="#ScrollBall.ManualStart" title="(permalink)">ScrollBall.ManualStart()</a></header><article><p>
+		This is a convenience class
+	</p></article></section><section><header id="ScrollBall.KeyHoldConditions"><a href="#ScrollBall.KeyHoldConditions" title="(permalink)">ScrollBall.KeyHoldConditions(key, stopOnRelease)</a></header><article><p>
+		This is a convenience class for locking the mouse when a key is held
+		(polled through <code>GetKeyState</code>).
+		</p><p>
+		If <code>stopOnRelease</code> is <code>true</code>, unlocks the mouse when the key is released.
+		</p><p>
+		For example,
+		</p><pre class="ahk">
+<span class="uv">sb</span> <span class="op">:</span><span class="op">=</span> <a class="sf" href="#ScrollBall">ScrollBall</a><span class="op">(</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">config</span><span class="op">.</span><span class="fd">conditions</span> <span class="op">:</span><span class="op">=</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.KeyHoldConditions">KeyHoldConditions</a><span class="op">(</span><span class="st">"LAlt"</span><span class="op">,</span> <span class="uv">true</span><span class="op">)</span>
+<span class="uv">sb</span><span class="op">.</span><span class="fd">deviceID</span> <span class="op">:</span><span class="op">=</span> <span class="st">"any"</span>
+<span class="uv">sb</span><span class="op">.</span><span class="sf">Listen</span><span class="op">(</span><span class="op">)</span>
+</pre><p>
+		Would lock mouse and scroll for any device, but only while Left Alt is held.
+	</p></article></section></article></section><section><header id="Scrollers"><a href="#Scrollers" title="(permalink)">Scrollers</a></header><article><a class="sticky-side" href="#Scrollers" title="Scrollers"><span>Scrollers</span></a><p>
+	These define what happens when translating mouse movement while locked.
+	</p><section><header id="ScrollBall.Scroller"><a href="#ScrollBall.Scroller" title="(permalink)">ScrollBall.Scroller</a></header><article><a class="sticky-side" href="#ScrollBall.Scroller" title="ScrollBall.Scroller"><span>ScrollBall.Scroller</span></a><p>
+		This is the base scroller. When making your own, you should inherit from it, like so:
+		</p><pre class="ahk">
+<span class="kw">class</span> <span class="uv">MyScroller</span> <span class="kw">extends</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.Scroller">Scroller</a> <span class="cb">{</span>
+	<span class="co">; ...</span>
+<span class="cb">}</span>
+</pre><p>
+		The class should define the following methods:
+		</p><section><header id="ScrollBall.Scroller.Apply"><a href="#ScrollBall.Scroller.Apply" title="(permalink)">Apply(delta)</a></header><article><p>
+			This function is called once per
+			<a href="#ScrollBall.AxisConfig.pixelsPerStep">pixelsPerStep</a>
+			worth of movement on an axis
+			and should perform whatever action that you'd like.
+			</p><p>
+			If <a href="#ScrollBall.Scroller.stepped">stepped</a> hasn't been set to <code>false</code>,
+			<code>delta</code> can only be 1 or -1, meaning that your function might look just like so:
+			</p><pre class="ahk">
+<span class="kw">class</span> <span class="uv">ArrowScroller</span> <span class="kw">extends</span> <a class="sv" href="#ScrollBall">ScrollBall</a><span class="op">.</span><a class="sf" href="#ScrollBall.Scroller">Scroller</a> <span class="cb">{</span>
+	<span class="uf">Apply</span><span class="op">(</span><span class="uv">dir</span><span class="op">)</span> <span class="cb">{</span>
+		<span class="kw">if</span> <span class="uv">dir</span> <span class="op">&lt;</span> <span class="nu">0</span> <span class="cb">{</span>
+			<span class="uf">Send</span><span class="op">(</span><span class="st">"{up}"</span><span class="op">)</span>
+		<span class="cb">}</span> <span class="kw">else</span> <span class="cb">{</span>
+			<span class="uf">Send</span><span class="op">(</span><span class="st">"{down}"</span><span class="op">)</span>
+		<span class="cb">}</span>
+	<span class="cb">}</span>
+<span class="cb">}</span>
+</pre></article></section><p>
+		The class may override the following properties:
+		</p><section><header id="ScrollBall.Scroller.stepped"><a href="#ScrollBall.Scroller.stepped" title="(permalink)">stepped := true</a></header><article><p>
+			If set to <code>false</code>, instead of calling <code>Apply</code> with delta=-1 or delta=1 N times,
+			it will be called one time with delta=N or delta=-N.
+			</p><p>
+			This can be handy if you are using a low
+			<a href="#ScrollBall.AxisConfig.pixelsPerStep">pixelsPerStep</a>
+			value for things like window movement
+			(that are best performed once for N pixels instead of N times for 1 pixel)
+		</p></article></section></article></section><section><header id="ScrollBall.KeyScroller"><a href="#ScrollBall.KeyScroller" title="(permalink)">ScrollBall.KeyScroller(keyUp, keyDown)</a></header><article><p>
+		This is a convenience class that sends one or other key stroke (using <code>Send</code>)
+		depending on direction.
+	</p></article></section></article></section><section><header id="other"><a href="#other" title="(permalink)">Other stuff</a></header><article><a class="sticky-side" href="#other" title="Other stuff"><span>Other stuff</span></a><section><header id="trace"><a href="#trace" title="(permalink)">trace(...)</a></header><article><p>
+		This is a convenience function that displays one or more values in the attached console window.
+		</p><p>
+		If there is no console window, it will be created on first call.
+	</p></article></section></article></section></p><!--doc>-->
+</section></main></div>
+<script type="text/javascript">(function() {
+	var doc, headers;
+	//
+	var path = "ScrollBall cheat sheet";
+	var state = null;
+	if (window.localStorage && JSON.parse) {
+		state = window.localStorage.getItem(path);
+		state = state ? JSON.parse(state) : { };
+		if (state == null) state = { };
+	}
+	var isLocal = (location.host.indexOf("localhost") == 0);
+	//
+	function h3bind(h3) {
+		var node = h3.parentNode;
+		var snip = node.children[1];
+		var id = h3.id || h3.textContent;
+		h3.snip = snip;
+		h3.doc_set = function(z) {
+			if (z) node.classList.add("open"); else node.classList.remove("open");
+			if (state) {
+				state[id] = z;
+				window.localStorage.setItem(path, JSON.stringify(state));
+			}
+		}
+		h3.doc_hide = function() {
+			this.doc_set(false);
+		}
+		h3.doc_show = function() {
+			this.doc_set(true);
+		}
+		h3.onclick = function(_) {
+			var seen = !node.classList.contains("open");
+			h3.doc_set(seen);
+			return false;
+		};
+	}
+	function getHashFunc(id) {
+		var node = document.getElementById(id);
+		if (node == null) return null;
+		return function(e) {
+			while (node && node != doc) {
+				if (node.classList.contains("item")) {
+					node.classList.add("open");
+				}
+				node = node.parentElement;
+			}
+		};
+	}
+	// Display helpers:
+	window.opt_none = function() {
+		for (var li = 0; li < headers.length; li++) headers[li].doc_hide();
+	};
+	window.opt_list = function() {
+		for (var li = 0; li < headers.length; li++) {
+			var h3 = headers[li];
+			if (h3.parentNode.parentNode != doc) {
+				h3.doc_hide();
+			} else h3.doc_show();
+		}
+	};
+	window.opt_all = function() {
+		for (var li = 0; li < headers.length; li++) headers[li].doc_show();
+	};
+	window.live_post = function() {
+		doc = document.getElementById("doc");
+		headers = doc.getElementsByTagName("header");
+		//
+		for (var i = 0; i < headers.length; i++) h3bind(headers[i]);
+		// Clicks in document expand the related section:
+		var anchors = doc.getElementsByTagName("a");
+		for (var i = 0; i < anchors.length; i++) {
+			var anchor = anchors[i];
+			if (anchor.classList.contains("header")) continue;
+			var href = anchor.getAttribute("href");
+			if (href[0] == "#") {
+				var fn = getHashFunc(href.substr(1));
+				if (!fn) {
+					anchor.classList.add("broken");
+					anchor.title = "(section missing)";
+				} else anchor.addEventListener("click", fn);
+			}
+		}
+		//
+		for (var li = 0; li < headers.length; li++) {
+			var h3 = headers[li];
+			var val = state ? state[h3.id || h3.textContent] : null;
+			if (val == null) val = isLocal || h3.parentNode.parentNode == doc;
+			if (val) h3.doc_show(); else h3.doc_hide();
+		}
+	};
+	window.live_post();
+	//
+	(function() {
+		var hash = document.location.hash;
+		if (hash) {
+			var _hash = hash.substr(1);
+			getHashFunc(_hash)();
+			setTimeout(function() {
+				document.location.hash = hash + " ";
+				setTimeout(function() {
+					document.location.hash = hash;
+				}, 100);
+			}, 100);
+		}
+	})();
+	//
+	doc.setAttribute("ready", "");
+	})();</script>
+</body></html>
