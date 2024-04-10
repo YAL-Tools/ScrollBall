@@ -7,6 +7,10 @@ Thus you can program your mouse to have "gestures" or do general input conversio
 (e.g. moving the mouse to scroll, change volume, press keys, and so on)
 regardless of driver/manufacturer.
 
+A little video:
+
+https://github.com/YAL-Tools/ScrollBall/assets/731492/4f1722fb-e8b5-432a-a6d8-fbdfbf59e3a7
+
 ## How does this work?
 The script uses Raw Input API to track motions from individual pointing devices
 and briefly locks the cursor when conditions are satisfied.
