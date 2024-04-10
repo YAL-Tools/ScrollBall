@@ -1,5 +1,5 @@
 # ScrollBall
-**Quick links:** [blog post](https://yal.cc/scrollball) · [documentation](https://yal-tools.github.io/scrollball/)
+**Quick links:** [blog post](https://yal.cc/scrollball) · [documentation](https://yal-tools.github.io/ScrollBall/)
 
 This is an AutoHotKey (v2) script that can turn motions from pointing devices (mice, trackballs, trackpads, etc.) into custom actions.
 
